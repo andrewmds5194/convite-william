@@ -890,13 +890,7 @@ async def root():
 app.include_router(api_router)
 
 # CORS Configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+
 
 @app.on_event("startup")
 async def startup_event():
