@@ -1,0 +1,147 @@
+/* App specific styles */
+
+/* Photo frame styles */
+.photo-frame {
+    position: relative;
+    border: 3px solid #F7C6A3;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(74, 59, 50, 0.15);
+}
+
+.photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid #F6DFA6;
+    pointer-events: none;
+}
+
+/* Decorative divider */
+.decorative-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.decorative-divider::before,
+.decorative-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #F7C6A3, transparent);
+}
+
+/* RSVP floating button */
+.rsvp-floating-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 50;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.rsvp-floating-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(244, 168, 150, 0.4);
+}
+
+/* Countdown styles */
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.countdown-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #F4A896;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8A796F;
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .countdown-number {
+        font-size: 4rem;
+    }
+    
+    .countdown-item {
+        min-width: 100px;
+    }
+}
+
+/* Gift card hover effect */
+.gift-card {
+    transition: all 0.3s ease;
+}
+
+.gift-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(74, 59, 50, 0.12);
+}
+
+.gift-card.reserved {
+    opacity: 0.7;
+}
+
+/* Map container */
+.map-container {
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 2px solid #F7C6A3;
+}
+
+.map-container iframe {
+    display: block;
+}
+
+/* Section fade animations */
+.section-fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Admin styles */
+.admin-sidebar {
+    background: linear-gradient(180deg, #FDFBF7 0%, #FFF8F0 100%);
+    border-right: 1px solid #F7C6A3;
+}
+
+.admin-nav-item {
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+}
+
+.admin-nav-item:hover {
+    background: rgba(244, 168, 150, 0.1);
+}
+
+.admin-nav-item.active {
+    background: rgba(244, 168, 150, 0.2);
+    color: #F4A896;
+}
+
+/* Toast customization */
+[data-sonner-toast] {
+    font-family: 'Montserrat', sans-serif !important;
+}

@@ -1,0 +1,60 @@
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_BACKEND_URL;
+
+const AuthContext = createContext(null);
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null); // null = checking, false = not authenticated, object = authenticated
+  const [loading, setLoading] = useState(true);
+
+  const checkAuth = useCallback(async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/auth/me`, {
+        withCredentials: true
+      });
+      setUser(response.data);
+    } catch (error) {
+      setUser(false);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  const login = async (username, password) => {
+    const response = await axios.post(
+      `${API_URL}/api/auth/login`,
+      { username, password },
+      { withCredentials: true }
+    );
+    setUser({ username });
+    return response.data;
+  };
+
+  const logout = async () => {
+    try {
+      await axios.post(`${API_URL}/api/auth/logout`, {}, { withCredentials: true });
+    } finally {
+      setUser(false);
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, loading, login, logout, checkAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+}
