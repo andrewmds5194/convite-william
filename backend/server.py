@@ -39,16 +39,16 @@ WEBHOOK_GIFT = "https://n8n.andrewmendes.com.br/webhook/presenteescolhido"
 
 # Create the main app
 app = FastAPI(title="Chá de Panela API")
-
-# Pega a URL do frontend da variável de ambiente, ou usa o link fixo por segurança
-frontend_url = os.getenv("FRONTEND_URL", "https://williamemallu.copyetech.shop")
-
+# Cole isso logo abaixo do app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[frontend_url, "http://localhost:3000"], # Quem pode acessar
-    allow_credentials=True, # Essencial, pois seu frontend envia cookies/credenciais
-    allow_methods=["*"], # Permite GET, POST, PUT, DELETE, etc.
-    allow_headers=["*"], # Permite todos os cabeçalhos
+    allow_origins=[
+        "https://williamemallu.copyetech.shop", # EXATAMENTE ASSIM, SEM BARRA NO FINAL
+        "http://localhost:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
