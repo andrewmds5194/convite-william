@@ -138,7 +138,7 @@ export default function InvitationPage() {
 
   return (
     <div className="min-h-screen bg-brand-bg relative overflow-x-hidden">
-      {/* Music Button */}
+       {/* Music Button */}
       <button
         onClick={toggleMusic}
         className={`music-btn fixed top-4 right-4 z-50 p-3 rounded-full bg-white soft-shadow ${isPlaying ? 'playing' : ''}`}
