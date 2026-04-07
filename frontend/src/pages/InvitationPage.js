@@ -18,7 +18,7 @@ const COUPLE_PHOTO = "https://arquivos.andrewmendes.com.br/api/public/dl/G4bFlZ5
 const FLORAL_DECORATION = "https://arquivos.andrewmendes.com.br/api/public/dl/2qRkdtdW/arquivosn8n/l%C3%ADrios%20moldura.png";
 
 // Background music (royalty-free wedding music)
-const BACKGROUND_MUSIC = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+const BACKGROUND_MUSIC = "https://arquivos.andrewmendes.com.br/api/public/dl/CEXkxp5u/arquivosn8n/Alok%20%26%20Bhaskar%20-%20Chatuba%20de%20Mesquita%20(Extended%20Version)%20-%20Chatuba%20Nation%20(youtube).mp3";
 
 export default function InvitationPage() {
   const { slug } = useParams();
