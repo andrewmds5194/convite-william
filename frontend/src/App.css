@@ -3,16 +3,16 @@
 /* Photo frame styles - Full width on mobile */
 .photo-frame {
     position: relative;
-    border: 3px solid #F7C6A3;
-    padding: 6px;
-    background: white;
+    border: 3px solid #F7C6A3; /* Mantém a borda coloridinha do tema */
+    padding: 0; /* ZERADO: a foto agora encosta na borda */
+    background: transparent; /* ZERADO: sem fundo branco */
     box-shadow: 0 10px 30px rgba(74, 59, 50, 0.15);
     width: 100%;
 }
 
 @media (min-width: 640px) {
     .photo-frame {
-        padding: 8px;
+        padding: 0; /* ZERADO para monitores também */
     }
 }
 
