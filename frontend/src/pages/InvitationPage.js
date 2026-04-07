@@ -138,14 +138,13 @@ export default function InvitationPage() {
 
   return (
     <div className="min-h-screen bg-brand-bg relative overflow-x-hidden">
-     {/* Music Button */}
+   {/* Music Button - Easter Egg */}
       <button
-        onClick={toggleMusic}
-        // Tiramos o fixed, top-4, bg-white e as sombras. 
-        // Colocamos absolute, bottom-0, right-0, w-12, h-12 e a opacity-0
-        className="absolute bottom-0 right-0 z-50 w-12 h-12 opacity-0 cursor-default"
+        onDoubleClick={toggleMusic}
+        // Alterado de right-0 para left-0
+        className="absolute bottom-0 left-0 z-50 w-12 h-12 opacity-0 cursor-default"
         data-testid="music-toggle-btn"
-        aria-label={isPlaying ? 'Pausar música' : 'Tocar música'}
+        aria-label="Botão secreto"
       >
         {isPlaying ? (
           <Volume2 className="h-5 w-5 text-brand-pink" />
