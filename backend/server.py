@@ -39,17 +39,7 @@ WEBHOOK_GIFT = "https://n8n.andrewmendes.com.br/webhook/presenteescolhido"
 
 # Create the main app
 app = FastAPI(title="Chá de Panela API")
-# Cole isso logo abaixo do app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://williamemallu.copyetech.shop", # EXATAMENTE ASSIM, SEM BARRA NO FINAL
-        "http://localhost:3000"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
@@ -100,6 +90,7 @@ class RSVPCreate(BaseModel):
     guest_slug: str
     name: str
     whatsapp: str
+    message: Optional[str] = None
     companions: List[Companion] = []
 
 class RSVP(BaseModel):
@@ -109,6 +100,7 @@ class RSVP(BaseModel):
     guest_slug: str
     name: str
     whatsapp: str
+    message: Optional[str] = None
     companions: List[Companion]
     created_at: datetime
 
@@ -457,6 +449,7 @@ async def create_rsvp(rsvp_data: RSVPCreate):
         "guest_slug": rsvp_data.guest_slug,
         "name": rsvp_data.name,
         "whatsapp": rsvp_data.whatsapp,
+        "message": rsvp_data.message,
         "companions": [c.model_dump() for c in rsvp_data.companions],
         "created_at": datetime.now(timezone.utc).isoformat()
     }
@@ -470,6 +463,7 @@ async def create_rsvp(rsvp_data: RSVPCreate):
         "guest_name": guest["name"],
         "rsvp_name": rsvp_data.name,
         "whatsapp": rsvp_data.whatsapp,
+        "message": rsvp_data.message,
         "companions": rsvp_doc["companions"],
         "total_adults": 1 + sum(1 for c in rsvp_data.companions if not c.is_child),
         "total_children": sum(1 for c in rsvp_data.companions if c.is_child)
@@ -833,27 +827,31 @@ async def get_invitation_message(guest_id: str, _: str = Depends(get_current_adm
     invite_url = f"{base_url}/{guest['slug']}"
     
     if guest["guest_type"] == "couple":
-        message = f"""Olá {guest['name']}! 
+        message = f"""Olá, {guest['name']}! Tudo bem? 🧡
 
-Vocês estão convidados para o Chá de Panela de William & Mallu!
+Estamos muito felizes em convidar vocês para o nosso Chá de Casa Nova! Não poderíamos comemorar esse momento sem vocês. 🫖✨
 
-Data: 21 de Junho de 2026, às 13h
+🗓️ Data: 21 de Junho de 2026
+🕜 Horário: às 13h
 
-Confirmem sua presença através do link exclusivo:
-{invite_url}
+Acessem o convite virtual exclusivo para ver o local, a lista de presentes e confirmar a presença:
+👉 {invite_url}
 
-Esperamos vocês! 🎉"""
+Esperamos vocês!
+Mallu & William 🎉"""
     else:
-        message = f"""Olá {guest['name']}! 
+        message = f"""Olá, {guest['name']}! Tudo bem? 🧡
 
-Você está convidado(a) para o Chá de Panela de William & Mallu!
+Estamos muito felizes em te convidar para o nosso Chá de Casa Nova! Não poderíamos comemorar esse momento sem você. 🫖✨
 
-Data: 21 de Junho de 2026, às 13h
+🗓️ Data: 21 de Junho de 2026
+🕜 Horário: às 13h
 
-Confirme sua presença através do link exclusivo:
-{invite_url}
+Acesse o seu convite virtual exclusivo para ver o local, a lista de presentes e confirmar sua presença:
+👉 {invite_url}
 
-Esperamos você! 🎉"""
+Esperamos você!
+Mallu & William 🎉"""
     
     return {"message": message, "url": invite_url}
 
@@ -890,7 +888,13 @@ async def root():
 app.include_router(api_router)
 
 # CORS Configuration
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 async def startup_event():
