@@ -182,7 +182,7 @@ export default function InvitationPage() {
 
         {/* Couple Photo - Full width on mobile */}
         <div className="mt-3 sm:mt-4 animate-fade-in-up w-full max-w-sm sm:max-w-md px-4" style={{ animationDelay: '0.2s' }}>
-          <div className="photo-frame rounded-t-full rounded-b-3xl overflow-hidden">
+          <div className="photo-frame p-0 border-none bg-transparent rounded-t-full rounded-b-3xl overflow-hidden">
             <img 
               src={COUPLE_PHOTO} 
               alt="William & Mallu" 
