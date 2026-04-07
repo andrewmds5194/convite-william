@@ -9,11 +9,13 @@ import {
   LayoutDashboard, 
   LogOut, 
   Menu, 
-  X 
+  X,
+  CheckCircle
 } from 'lucide-react';
 import DashboardHome from '@/components/admin/DashboardHome';
 import GuestManagement from '@/components/admin/GuestManagement';
 import GiftManagement from '@/components/admin/GiftManagement';
+import ConfirmedList from '@/components/admin/ConfirmedList';
 
 export default function AdminDashboard() {
   const { logout } = useAuth();
@@ -28,6 +30,7 @@ export default function AdminDashboard() {
 
   const navItems = [
     { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
+    { path: '/admin/confirmed', label: 'Confirmados', icon: CheckCircle },
     { path: '/admin/guests', label: 'Convidados', icon: Users },
     { path: '/admin/gifts', label: 'Presentes', icon: Gift },
   ];
@@ -108,6 +111,7 @@ export default function AdminDashboard() {
         <div className="max-w-6xl mx-auto pt-12 lg:pt-0">
           <Routes>
             <Route index element={<DashboardHome />} />
+            <Route path="confirmed" element={<ConfirmedList />} />
             <Route path="guests" element={<GuestManagement />} />
             <Route path="gifts" element={<GiftManagement />} />
           </Routes>

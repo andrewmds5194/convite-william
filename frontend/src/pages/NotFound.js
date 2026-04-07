@@ -10,17 +10,17 @@ export default function NotFound({ isHome = false }) {
           <Heart className="h-16 w-16 mx-auto text-brand-pink fill-brand-peach" />
         </div>
         
-        <h1 className="font-cursive text-5xl md:text-6xl text-brand-pink mb-4">
+        <h1 className="font-cursive text-4xl sm:text-5xl md:text-6xl text-brand-pink mb-4">
           {isHome ? 'William & Mallu' : 'Oops!'}
         </h1>
         
-        <p className="font-serif text-xl text-brand-text mb-6">
+        <p className="font-serif text-lg sm:text-xl text-brand-text mb-6">
           {isHome 
             ? 'Acesse seu convite através do link exclusivo que você recebeu.'
             : 'Convite não encontrado. Verifique se você acessou o link correto.'}
         </p>
         
-        <p className="text-brand-text-muted mb-8">
+        <p className="text-brand-text-muted text-sm sm:text-base mb-8">
           {isHome
             ? 'Se você ainda não recebeu seu convite, entre em contato com os noivos.'
             : 'Entre em contato com os noivos se precisar de ajuda.'}

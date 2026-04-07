@@ -3,15 +3,17 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Loader2, Plus, Trash2, UserPlus } from 'lucide-react';
+import { Loader2, UserPlus, Trash2, Heart } from 'lucide-react';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
-  const [name, setName] = useState(guest?.name || '');
+  const [name, setName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
+  const [message, setMessage] = useState('');
   const [companions, setCompanions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -48,7 +50,7 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
     setError('');
 
     if (!name.trim()) {
-      setError('Por favor, informe seu nome');
+      setError('Por favor, informe seu nome completo');
       return;
     }
 
@@ -72,6 +74,7 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
         guest_slug: guest.slug,
         name: name.trim(),
         whatsapp: whatsapp.trim(),
+        message: message.trim(),
         companions: companions.map(c => ({
           name: c.name.trim(),
           is_child: c.is_child
@@ -79,26 +82,31 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
       });
       onSuccess();
     } catch (err) {
-      const message = err.response?.data?.detail || 'Erro ao confirmar presença';
-      setError(typeof message === 'string' ? message : 'Erro ao confirmar presença. Tente novamente.');
+      const msg = err.response?.data?.detail || 'Erro ao confirmar presença';
+      setError(typeof msg === 'string' ? msg : 'Erro ao confirmar presença. Tente novamente.');
     } finally {
       setLoading(false);
     }
   };
 
+  const isCouple = guest?.guest_type === 'couple';
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md bg-brand-bg">
+      <DialogContent className="max-w-md bg-brand-bg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="font-serif text-2xl text-brand-text text-center">
+          <DialogTitle className="font-serif text-xl sm:text-2xl text-brand-text text-center">
             Confirmar Presença
           </DialogTitle>
-          <DialogDescription className="text-center text-brand-text-muted">
-            Preencha seus dados para confirmar sua presença no evento.
+          <DialogDescription className="text-center text-brand-text-muted text-sm">
+            {isCouple 
+              ? 'Preencha os dados de cada pessoa. Se forem casal ou tiverem filhos, adicione cada um como acompanhante.'
+              : 'Preencha seus dados. Se vier com cônjuge ou filhos, adicione cada um como acompanhante.'
+            }
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-5 mt-4">
           {error && (
             <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg" data-testid="rsvp-error">
               {error}
@@ -110,7 +118,7 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
             <Input
               id="rsvp-name"
               type="text"
-              placeholder="Seu nome completo"
+              placeholder="Digite seu nome completo"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="border-brand-peach/50 focus:border-brand-pink focus:ring-brand-pink"
@@ -133,6 +141,19 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
             />
           </div>
 
+          <div className="space-y-2">
+            <Label htmlFor="rsvp-message" className="text-brand-text">Mensagem para o Casal (opcional)</Label>
+            <Textarea
+              id="rsvp-message"
+              placeholder="Deixe uma mensagem especial para William & Mallu..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="border-brand-peach/50 focus:border-brand-pink focus:ring-brand-pink"
+              rows={3}
+              data-testid="rsvp-message-input"
+            />
+          </div>
+
           {/* Companions Section */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -149,6 +170,9 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
                 Adicionar
               </Button>
             </div>
+            <p className="text-xs text-brand-text-muted -mt-2">
+              Adicione cônjuge, filhos ou outros acompanhantes. Cada pessoa deve ser adicionada separadamente.
+            </p>
 
             {companions.map((companion, index) => (
               <div key={index} className="p-4 bg-white rounded-lg border border-brand-peach/30 space-y-3">
@@ -168,7 +192,7 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
                 
                 <Input
                   type="text"
-                  placeholder="Nome do acompanhante"
+                  placeholder="Nome completo do acompanhante"
                   value={companion.name}
                   onChange={(e) => updateCompanion(index, 'name', e.target.value)}
                   className="border-brand-peach/50 focus:border-brand-pink focus:ring-brand-pink"
@@ -206,7 +230,10 @@ export default function RSVPModal({ open, onOpenChange, guest, onSuccess }) {
                 Confirmando...
               </>
             ) : (
-              'Confirmar Presença'
+              <>
+                <Heart className="mr-2 h-4 w-4" />
+                Confirmar Presença
+              </>
             )}
           </Button>
         </form>

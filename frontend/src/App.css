@@ -1,29 +1,51 @@
 /* App specific styles */
 
-/* Photo frame styles */
+/* Photo frame styles - Full width on mobile */
 .photo-frame {
     position: relative;
     border: 3px solid #F7C6A3;
-    padding: 8px;
+    padding: 6px;
     background: white;
     box-shadow: 0 10px 30px rgba(74, 59, 50, 0.15);
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .photo-frame {
+        padding: 8px;
+    }
 }
 
 .photo-frame::before {
     content: '';
     position: absolute;
-    inset: -8px;
+    inset: -6px;
     border: 1px solid #F6DFA6;
     pointer-events: none;
 }
 
-/* Decorative divider */
+@media (min-width: 640px) {
+    .photo-frame::before {
+        inset: -8px;
+    }
+}
+
+/* Decorative divider - Centered */
 .decorative-divider {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin: 2rem 0;
+    gap: 0.75rem;
+    margin: 1.5rem auto;
+    width: 100%;
+    max-width: 280px;
+}
+
+@media (min-width: 640px) {
+    .decorative-divider {
+        gap: 1rem;
+        margin: 2rem auto;
+    }
 }
 
 .decorative-divider::before,
@@ -37,11 +59,18 @@
 /* RSVP floating button */
 .rsvp-floating-btn {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1rem;
+    right: 1rem;
     z-index: 50;
     transform: translateY(0);
     transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+    .rsvp-floating-btn {
+        bottom: 2rem;
+        right: 2rem;
+    }
 }
 
 .rsvp-floating-btn:hover {
@@ -49,17 +78,28 @@
     box-shadow: 0 15px 40px rgba(244, 168, 150, 0.4);
 }
 
-/* Countdown styles */
+/* Countdown styles - Responsive */
 .countdown-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 80px;
+    min-width: 60px;
+}
+
+@media (min-width: 640px) {
+    .countdown-item {
+        min-width: 80px;
+    }
+}
+
+@media (min-width: 768px) {
+    .countdown-item {
+        min-width: 100px;
+    }
 }
 
 .countdown-number {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
     font-weight: 600;
     color: #F4A896;
     line-height: 1;
@@ -67,20 +107,15 @@
 
 .countdown-label {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #8A796F;
-    margin-top: 0.5rem;
+    margin-top: 0.35rem;
 }
 
-@media (min-width: 768px) {
-    .countdown-number {
-        font-size: 4rem;
-    }
-    
-    .countdown-item {
-        min-width: 100px;
+@media (min-width: 640px) {
+    .countdown-label {
+        margin-top: 0.5rem;
     }
 }
 
@@ -98,15 +133,22 @@
     opacity: 0.7;
 }
 
-/* Map container */
+/* Map container - Responsive */
 .map-container {
-    border-radius: 1rem;
+    border-radius: 0.75rem;
     overflow: hidden;
     border: 2px solid #F7C6A3;
 }
 
+@media (min-width: 640px) {
+    .map-container {
+        border-radius: 1rem;
+    }
+}
+
 .map-container iframe {
     display: block;
+    width: 100%;
 }
 
 /* Section fade animations */
@@ -144,4 +186,26 @@
 /* Toast customization */
 [data-sonner-toast] {
     font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Glass card improvements */
+.glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(247, 198, 163, 0.3);
+}
+
+/* Soft shadow */
+.soft-shadow {
+    box-shadow: 0 10px 40px rgba(74, 59, 50, 0.08), 0 4px 12px rgba(74, 59, 50, 0.05);
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 639px) {
+    .photo-frame img {
+        min-height: 300px;
+        object-fit: cover;
+        object-position: center;
+    }
 }
