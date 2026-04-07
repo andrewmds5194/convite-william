@@ -156,19 +156,19 @@ export default function InvitationPage() {
       <img 
         src={FLORAL_DECORATION} 
         alt="" 
-        className="fixed top-0 left-0 w-32 sm:w-40 md:w-48 lg:w-56 opacity-80 pointer-events-none z-10"
+        className="absolute top-0 left-0 w-32 sm:w-40 md:w-48 lg:w-56 opacity-80 pointer-events-none z-10"
         style={{ transform: 'rotate(0deg)' }}
       />
       <img 
         src={FLORAL_DECORATION} 
         alt="" 
-        className="fixed bottom-0 right-0 w-32 sm:w-40 md:w-48 lg:w-56 opacity-80 pointer-events-none z-10"
+        className="absolute bottom-0 right-0 w-32 sm:w-40 md:w-48 lg:w-56 opacity-80 pointer-events-none z-10"
         style={{ transform: 'rotate(180deg)' }}
       />
 
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-16 relative">
-        <div className="text-center animate-fade-in-up">
+        <div className="pt-10 text-center animate-fade-in-up">
           <p className="font-serif text-base sm:text-lg md:text-xl text-brand-text-muted mb-2 sm:mb-4 tracking-widest uppercase">
             Chá de Casa Nova
           </p>
