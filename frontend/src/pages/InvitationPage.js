@@ -162,17 +162,17 @@ export default function InvitationPage() {
       <img 
         src={FLORAL_DECORATION} 
         alt="" 
-        className="absolute bottom-0 right-0 w-32 sm:w-40 md:w-48 lg:w-56 opacity-80 pointer-events-none z-10"
+        className="absolute bottom-0 right-0 w-24 sm:w-40 md:w-48 lg:w-56 opacity-80 pointer-events-none z-10"
         style={{ transform: 'rotate(180deg)' }}
       />
 
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-16 relative">
-        <div className="pt-10 text-center animate-fade-in-up">
+        <div className="pt-16 text-center animate-fade-in-up">
           <p className="font-serif text-base sm:text-lg md:text-xl text-brand-text-muted mb-2 sm:mb-4 tracking-widest uppercase">
             Chá de Casa Nova
           </p>
-          <h1 className="font-cursive text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-brand-pink mb-4 sm:mb-6">
+          <h1 className="font-cursive text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-brand-pink mb-2 sm:mb-6">
             William & Mallu
           </h1>
           <div className="decorative-divider max-w-xs mx-auto">
@@ -181,7 +181,7 @@ export default function InvitationPage() {
         </div>
 
         {/* Couple Photo - Full width on mobile */}
-        <div className="mt-8 sm:mt-12 animate-fade-in-up w-full max-w-sm sm:max-w-md px-4" style={{ animationDelay: '0.2s' }}>
+        <div className="mt-3 sm:mt-4 animate-fade-in-up w-full max-w-sm sm:max-w-md px-4" style={{ animationDelay: '0.2s' }}>
           <div className="photo-frame rounded-t-full rounded-b-3xl overflow-hidden">
             <img 
               src={COUPLE_PHOTO} 
