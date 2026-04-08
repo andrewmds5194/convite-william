@@ -28,8 +28,59 @@ export default function InvitationPage() {
   const [showRSVPModal, setShowRSVPModal] = useState(false);
   const [showGiftsModal, setShowGiftsModal] = useState(false);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+// === MÚSICA 1 (EASTER EGG ESCONDIDO - Chatuba de Mesquita) ===
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio] = useState(() => typeof Audio !== 'undefined' ? new Audio(BACKGROUND_MUSIC) : null);
+
+  useEffect(() => {
+    if (audio) { audio.loop = true; audio.volume = 0.3; }
+    return () => { if (audio) { audio.pause(); audio.currentTime = 0; } };
+  }, [audio]);
+
+  const toggleMusic = () => {
+    if (!audio) return;
+    
+    // Pausa a música nova se ela estiver tocando
+    if (isPlayingNova && audioNova) {
+      audioNova.pause();
+      setIsPlayingNova(false);
+    }
+    
+    // Toca ou pausa o Easter Egg
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play().catch(() => toast.info('Clique duplo novamente para tocar a música'));
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  // === MÚSICA 2 (NOVA E VISÍVEL - Ordinary Instrumental) ===
+  const [isPlayingNova, setIsPlayingNova] = useState(false);
+  const [audioNova] = useState(() => typeof Audio !== 'undefined' ? new Audio('https://arquivos.andrewmendes.com.br/api/public/dl/HA5rh5Tq/arquivosn8n/Alex%20Warren%20-%20Ordinary%20(Instrumental)%20No%20Vocals%20-%20Instrumental%20Music%20-%20Best%20Songs%20(youtube).mp3') : null);
+
+  useEffect(() => {
+    if (audioNova) { audioNova.loop = true; audioNova.volume = 0.3; }
+    return () => { if (audioNova) { audioNova.pause(); audioNova.currentTime = 0; } };
+  }, [audioNova]);
+
+  const toggleMusicNova = () => {
+    if (!audioNova) return;
+    
+    // Pausa o Easter Egg se ele estiver tocando
+    if (isPlaying && audio) {
+      audio.pause();
+      setIsPlaying(false);
+    }
+    
+    // Toca ou pausa a música oficial
+    if (isPlayingNova) {
+      audioNova.pause();
+    } else {
+      audioNova.play().catch(() => toast.info('Clique novamente para tocar a música'));
+    }
+    setIsPlayingNova(!isPlayingNova);
+  };
   const [rsvpDisabled, setRsvpDisabled] = useState(false);
 
   // Event date: June 21, 2026 at 13:00 BRT (16:00 UTC)
@@ -86,32 +137,6 @@ export default function InvitationPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // Audio controls
-  useEffect(() => {
-    if (audio) {
-      audio.loop = true;
-      audio.volume = 0.3;
-    }
-    return () => {
-      if (audio) {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-    };
-  }, [audio]);
-
-  const toggleMusic = () => {
-    if (!audio) return;
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play().catch(() => {
-        toast.info('Clique novamente para tocar a música');
-      });
-    }
-    setIsPlaying(!isPlaying);
-  };
-
   const handleRSVPSuccess = () => {
     setShowRSVPModal(false);
     fetchGuest();
@@ -139,11 +164,25 @@ export default function InvitationPage() {
   return (
     <div className="min-h-screen bg-brand-bg relative overflow-x-hidden">
    {/* Music Button - Easter Egg */}
+     {/* 1. BOTÃO NOVO (VISÍVEL NO TOPO À DIREITA) */}
+      <button
+        onClick={toggleMusicNova}
+        className={`fixed top-4 right-4 z-50 p-3 rounded-full bg-white shadow-lg transition-transform hover:scale-105 ${isPlayingNova ? 'animate-pulse' : ''}`}
+        data-testid="music-toggle-btn-visible"
+        aria-label={isPlayingNova ? 'Pausar música' : 'Tocar música'}
+      >
+        {isPlayingNova ? (
+          <Volume2 className="h-5 w-5 text-brand-pink" />
+        ) : (
+          <VolumeX className="h-5 w-5 text-brand-text-muted" />
+        )}
+      </button>
+
+      {/* 2. BOTÃO ANTIGO (EASTER EGG ESCONDIDO EMBAIXO NA ESQUERDA) */}
       <button
         onDoubleClick={toggleMusic}
-        // Alterado de right-0 para left-0
         className="absolute bottom-0 left-0 z-50 w-12 h-12 opacity-0 cursor-default"
-        data-testid="music-toggle-btn"
+        data-testid="music-toggle-btn-secret"
         aria-label="Botão secreto"
       >
         {isPlaying ? (
