@@ -12,13 +12,13 @@ import NotFound from './NotFound';
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Couple photo URL
-const COUPLE_PHOTO = "https://arquivos.andrewmendes.com.br/api/public/dl/G4bFlZ5W/arquivosn8n/WhatsApp%20Image%202026-04-06%20at%2014.15.22.jpeg";
+const COUPLE_PHOTO = "https://arquivos.arclubedeviagens.com.br/api/public/dl/G4bFlZ5W/arquivosn8n/WhatsApp%20Image%202026-04-06%20at%2014.15.22.jpeg";
 
 // Floral decoration image (lírios)
-const FLORAL_DECORATION = "https://arquivos.andrewmendes.com.br/api/public/dl/2qRkdtdW/arquivosn8n/l%C3%ADrios%20moldura.png";
+const FLORAL_DECORATION = "https://arquivos.arclubedeviagens.com.br/api/public/dl/2qRkdtdW/arquivosn8n/l%C3%ADrios%20moldura.png";
 
 // Background music (royalty-free wedding music)
-const BACKGROUND_MUSIC = "https://arquivos.andrewmendes.com.br/api/public/dl/CEXkxp5u/arquivosn8n/Alok%20%26%20Bhaskar%20-%20Chatuba%20de%20Mesquita%20(Extended%20Version)%20-%20Chatuba%20Nation%20(youtube).mp3";
+const BACKGROUND_MUSIC = "https://arquivos.arclubedeviagens.com.br/api/public/dl/CEXkxp5u/arquivosn8n/Alok%20%26%20Bhaskar%20-%20Chatuba%20de%20Mesquita%20(Extended%20Version)%20-%20Chatuba%20Nation%20(youtube).mp3";
 
 export default function InvitationPage() {
   const { slug } = useParams();
@@ -57,7 +57,7 @@ export default function InvitationPage() {
 
   // === MÚSICA 2 (NOVA E VISÍVEL - Ordinary Instrumental) ===
   const [isPlayingNova, setIsPlayingNova] = useState(false);
-  const [audioNova] = useState(() => typeof Audio !== 'undefined' ? new Audio('https://arquivos.andrewmendes.com.br/api/public/dl/HA5rh5Tq/arquivosn8n/Alex%20Warren%20-%20Ordinary%20(Instrumental)%20No%20Vocals%20-%20Instrumental%20Music%20-%20Best%20Songs%20(youtube).mp3') : null);
+  const [audioNova] = useState(() => typeof Audio !== 'undefined' ? new Audio('https://arquivos.arclubedeviagens.com.br/api/public/dl/HA5rh5Tq/arquivosn8n/Alex%20Warren%20-%20Ordinary%20(Instrumental)%20No%20Vocals%20-%20Instrumental%20Music%20-%20Best%20Songs%20(youtube).mp3') : null);
 
   useEffect(() => {
     if (audioNova) { audioNova.loop = true; audioNova.volume = 0.3; }
